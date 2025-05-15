@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": false,
+    "nodeVersion": "16.20.2",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.18.2",
+    "libraryName": "new-joinee-video-gal-vacancies",
+    "libraryId": "6ef25415-42a9-48ef-bb14-efcdc643fd0e",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "NewJoinee_VideoGal_Vacancies",
+    "solutionShortDescription": "NewJoinee_VideoGal_Vacancies description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/spfx-serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "initialPage": "https://{tenantDomain}/_layouts/workbench.aspx",
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://dmccdxb.sharepoint.com/sites/DMCCDev/SitePages/HomePage-Copy.aspx",
+      "customActions": {
+        "342abff9-bc4f-4e4e-8db1-c0966603891b": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    },
+    "notifications": {
+      "pageUrl": "https://dmccdxb.sharepoint.com/sites/DMCCDev/SitePages/HomePage-Copy.aspx",
+      "customActions": {
+        "342abff9-bc4f-4e4e-8db1-c0966603891b": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    }
+  }
+}

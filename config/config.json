@@ -1,0 +1,189 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "home-video-gallery-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/homeVideoGallery/HomeVideoGalleryWebPart.js",
+          "manifest": "./src/webparts/homeVideoGallery/HomeVideoGalleryWebPart.manifest.json"
+        }
+      ]
+    },
+    "new-joinee-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/newJoineeListing/NewJoineeListingWebPart.js",
+          "manifest": "./src/webparts/newJoineeListing/NewJoineeListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "new-vacancies-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/newVacanciesListing/NewVacanciesListingWebPart.js",
+          "manifest": "./src/webparts/newVacanciesListing/NewVacanciesListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "video-gallery-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/videoGalleryListing/VideoGalleryListingWebPart.js",
+          "manifest": "./src/webparts/videoGalleryListing/VideoGalleryListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "wp-event-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/wpEventListing/WpEventListingWebPart.js",
+          "manifest": "./src/webparts/wpEventListing/WpEventListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "event-listing-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/eventListingUat/EventListingUatWebPart.js",
+          "manifest": "./src/webparts/eventListingUat/EventListingUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "event-details-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/eventDetails/EventDetailsWebPart.js",
+          "manifest": "./src/webparts/eventDetails/EventDetailsWebPart.manifest.json"
+        }
+      ]
+    },
+    "news-listing-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/newsListingUat/NewsListingUatWebPart.js",
+          "manifest": "./src/webparts/newsListingUat/NewsListingUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "news-details-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/newsDetailsUat/NewsDetailsUatWebPart.js",
+          "manifest": "./src/webparts/newsDetailsUat/NewsDetailsUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "announcement-listing-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/announcementListingUat/AnnouncementListingUatWebPart.js",
+          "manifest": "./src/webparts/announcementListingUat/AnnouncementListingUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "announcement-details-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/announcementDetailsUat/AnnouncementDetailsUatWebPart.js",
+          "manifest": "./src/webparts/announcementDetailsUat/AnnouncementDetailsUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "special-offers-listing-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/specialOffersListingUat/SpecialOffersListingUatWebPart.js",
+          "manifest": "./src/webparts/specialOffersListingUat/SpecialOffersListingUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "special-offers-details-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/specialOffersDetailsUat/SpecialOffersDetailsUatWebPart.js",
+          "manifest": "./src/webparts/specialOffersDetailsUat/SpecialOffersDetailsUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "announcment-details-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/announcmentDetailsUat/AnnouncmentDetailsUatWebPart.js",
+          "manifest": "./src/webparts/announcmentDetailsUat/AnnouncmentDetailsUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "linkdin-uat-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/linkdinUat/LinkdinUatWebPart.js",
+          "manifest": "./src/webparts/linkdinUat/LinkdinUatWebPart.manifest.json"
+        }
+      ]
+    },
+    "notifications-application-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/notifications/NotificationsApplicationCustomizer.js",
+          "manifest": "./src/extensions/notifications/NotificationsApplicationCustomizer.manifest.json"
+        }
+      ]
+    },
+    "jlt-offers-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/jltOffersListing/JltOffersListingWebPart.js",
+          "manifest": "./src/webparts/jltOffersListing/JltOffersListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "jlt-offers-details-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/jltOffersDetails/JltOffersDetailsWebPart.js",
+          "manifest": "./src/webparts/jltOffersDetails/JltOffersDetailsWebPart.manifest.json"
+        }
+      ]
+    },
+    "uptown-offers-listing-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/uptownOffersListing/UptownOffersListingWebPart.js",
+          "manifest": "./src/webparts/uptownOffersListing/UptownOffersListingWebPart.manifest.json"
+        }
+      ]
+    },
+    "uptown-offers-details-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/uptownOffersDetails/UptownOffersDetailsWebPart.js",
+          "manifest": "./src/webparts/uptownOffersDetails/UptownOffersDetailsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HomeVideoGalleryWebPartStrings": "lib/webparts/homeVideoGallery/loc/{locale}.js",
+    "NewJoineeListingWebPartStrings": "lib/webparts/newJoineeListing/loc/{locale}.js",
+    "NewVacanciesListingWebPartStrings": "lib/webparts/newVacanciesListing/loc/{locale}.js",
+    "VideoGalleryListingWebPartStrings": "lib/webparts/videoGalleryListing/loc/{locale}.js",
+    "WpEventListingWebPartStrings": "lib/webparts/wpEventListing/loc/{locale}.js",
+    "EventListingUatWebPartStrings": "lib/webparts/eventListingUat/loc/{locale}.js",
+    "EventDetailsWebPartStrings": "lib/webparts/eventDetails/loc/{locale}.js",
+    "NewsListingUatWebPartStrings": "lib/webparts/newsListingUat/loc/{locale}.js",
+    "NewsDetailsUatWebPartStrings": "lib/webparts/newsDetailsUat/loc/{locale}.js",
+    "AnnouncementListingUatWebPartStrings": "lib/webparts/announcementListingUat/loc/{locale}.js",
+    "AnnouncementDetailsUatWebPartStrings": "lib/webparts/announcementDetailsUat/loc/{locale}.js",
+    "SpecialOffersListingUatWebPartStrings": "lib/webparts/specialOffersListingUat/loc/{locale}.js",
+    "SpecialOffersDetailsUatWebPartStrings": "lib/webparts/specialOffersDetailsUat/loc/{locale}.js",
+    "AnnouncmentDetailsUatWebPartStrings": "lib/webparts/announcmentDetailsUat/loc/{locale}.js",
+    "LinkdinUatWebPartStrings": "lib/webparts/linkdinUat/loc/{locale}.js",
+    "NotificationsApplicationCustomizerStrings": "lib/extensions/notifications/loc/{locale}.js",
+    "JltOffersListingWebPartStrings": "lib/webparts/jltOffersListing/loc/{locale}.js",
+    "JltOffersDetailsWebPartStrings": "lib/webparts/jltOffersDetails/loc/{locale}.js",
+    "UptownOffersListingWebPartStrings": "lib/webparts/uptownOffersListing/loc/{locale}.js",
+    "UptownOffersDetailsWebPartStrings": "lib/webparts/uptownOffersDetails/loc/{locale}.js"
+  }
+}

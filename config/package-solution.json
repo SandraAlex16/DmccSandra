@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "new-joinee-video-gal-vacancies-client-side-solution",
+    "id": "6ef25415-42a9-48ef-bb14-efcdc643fd0e",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "NewJoinee_VideoGal_Vacancies description"
+      },
+      "longDescription": {
+        "default": "NewJoinee_VideoGal_Vacancies description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "new-joinee-video-gal-vacancies Feature",
+        "description": "The feature that activates elements of the new-joinee-video-gal-vacancies solution.",
+        "id": "84a0c208-db49-4c44-9bd6-ad680867a75c",
+        "version": "1.0.0.0",
+        "assets": {
+          "elementManifests": [
+            "elements.xml",
+            "ClientSideInstance.xml"
+          ]
+        }
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/new-joinee-video-gal-vacancies.sppkg"
+  }
+}
