@@ -21,23 +21,24 @@ export interface ISPLists {
 export default class NotificationsApplicationCustomizer
   extends BaseApplicationCustomizer<INotificationsApplicationCustomizerProperties> {
 
-    private _lastNotificationId: number | null = null;
+      private _lastNotificationId: number | null = null;
 
   public onInit(): Promise<void> {
-    alert(99)
-    // Remove debug alert
     Log.info(LOG_SOURCE, `Initialized ${strings.Title}`);
 
-    const apiUrl = `https://dmccdxb.sharepoint.com/sites/DMCCDev/_api/web/lists/GetByTitle('Notifications')/items?$top=1&$orderby=Modified desc&$select=Id,NotificationMessage,DetailsPage,ReadBy/Id&$expand=ReadBy`;
+    const apiUrl = `https://dmccdxb.sharepoint.com/sites/DMCCDev/_api/web/lists/GetByTitle('Notifications')/items?$top=1&$orderby=Created desc&$select=Id,NotificationMessage,DetailsPage,ReadBy/Id&$expand=ReadBy`;
 
+    // Call once immediately
     this._renderListAsync(apiUrl);
 
+    // Then check every 2 seconds
     setInterval(() => {
-    this._renderListAsync(apiUrl);
-  }, 2000);
+      this._renderListAsync(apiUrl);
+    }, 2000);
 
     return Promise.resolve();
   }
+
 
   private async _getListData(apiUrl: string): Promise<ISPLists[]> {
     const response = await this.context.spHttpClient.get(apiUrl, SPHttpClient.configurations.v1);
@@ -72,43 +73,41 @@ private async _renderListAsync(apiUrl: string): Promise<void> {
 
   private _renderNotification(item: ISPLists): void {
     const currentUserId = this.context.pageContext.legacyPageContext.userId;
-    const existingUserIds: number[] = (item.ReadBy || [])
-      .map((user: any) => user.Id);
-    
+    const existingUserIds: number[] = (item.ReadBy || []).map((user: any) => user.Id);
     if (existingUserIds.indexOf(currentUserId) !== -1) {
       console.log('User has already read this notification');
       return;
     }
 
+    // Remove existing notification
+    const existingNotification = document.querySelector('.notifcation-wrapper');
+    if (existingNotification) {
+      existingNotification.remove();
+    }
+
     const wrapper: HTMLElement = document.createElement('div');
-    wrapper.innerHTML = `
-      <div class="notifcation-wrapper">
-        <div class="notification-container d-flex flex-column flex-sm-row align-items-start align-items-sm-end gap-3">
-          <div class="flex-grow-1 overflow-hidden notification-txt text-xxl">
-            ${item.NotificationMessage}
+    wrapper.innerHTML = 
+      `<div class="notifcation-wrapper">
+        <div class="notification-container">
+          <div class="notification-txt text-xl d-block">
+            <p>${item.NotificationMessage}</p>
           </div>
-          <a href="#" class="notification-readmore flex-shrink-0 mt-sm-4">READ MORE</a>
+          <a href="#" class="notification-readmore float-end mt-2">READ MORE</a>
           <div class="notification-close d-flex align-items-center justify-content-center" style="cursor: pointer;">
             <img src="https://dmccdxb.sharepoint.com/sites/DMCCDev/SiteAssets/images/icons/v2/close-white-icon.png" alt="Close"/>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
 
     const readMoreLink = wrapper.querySelector('.notification-readmore');
     readMoreLink?.addEventListener('click', async (event) => {
-      event.preventDefault(); // Prevent default navigation
-      
+      event.preventDefault();
       try {
-        console.log('Updating ReadBy field for item ID:', item.Id);
         await this._updateReadByField(item.Id);
-        console.log('ReadBy field updated successfully');
-        
         const detailsUrl = item.DetailsPage?.Url || '#';
-        window.location.href = detailsUrl; // Navigate after update is complete
+        window.location.href = detailsUrl;
       } catch (error) {
         console.error('Error during ReadMore click:', error);
-        // Fallback navigation in case of error
         const detailsUrl = item.DetailsPage?.Url || '#';
         window.location.href = detailsUrl;
       }
@@ -121,7 +120,7 @@ private async _renderListAsync(apiUrl: string): Promise<void> {
         wrapper.remove();
       } catch (error) {
         console.error('Error during notification close:', error);
-        wrapper.remove(); // Still remove the notification on error
+        wrapper.remove();
       }
     });
 
@@ -131,12 +130,13 @@ private async _renderListAsync(apiUrl: string): Promise<void> {
     } else {
       body.appendChild(wrapper);
     }
-    
-    setTimeout(function(){
+
+    setTimeout(() => {
       // @ts-ignore
       $(".notifcation-wrapper").show();
     }, 2000);
   }
+
 
   private async _updateReadByField(itemId: number): Promise<void> {
     try {

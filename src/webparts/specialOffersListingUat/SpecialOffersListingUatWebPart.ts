@@ -24,6 +24,9 @@ export interface ISPLists {
   value: ISPList[];
 }
 export interface ISPList {
+  DMCCDiscountCode: any;
+  DMCCShopName: any;
+  DMCCLocation: any;
   Title: string,
   DMCCStartDate: string,
   DMCCEndDate: string;
@@ -53,8 +56,8 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
 
   private itemsToDisplay: number = 6;
   private items: any[] = [];
-  private BtnYearDDL: HTMLButtonElement;
-  private BtnMonthDDL: HTMLButtonElement;
+  // private BtnYearDDL: HTMLButtonElement;
+  // private BtnMonthDDL: HTMLButtonElement;
   private SearchTextInput: HTMLInputElement;
   public filterCriteria: any = [];
 
@@ -67,10 +70,11 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
   private BtnLoadMoreSpecialOffers: HTMLButtonElement;
   public today = new Date().toISOString().slice(0, 20) + "000Z";
   public selectedTab: any = "Special Offer";
-  // private _FirstSite = "/sites/DMCC-Intranet-Prod";
-  private _FirstSite = "/sites/DMCCDev";
-
+  //  private _FirstSite = "/sites/DMCC-Intranet-Prod";
+ private _FirstSite = "/sites/DMCCDev";
+  private countsMap: Map<number, { likeCount: number; commentCount: number }> = new Map();
   private dmccSpecialOffers = new dmccSpecialOffers();
+  allItems: any[] = [];
 
 
   private loadDistinctYears(): void {
@@ -111,30 +115,30 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
 
   private populateDropdown(years: any): void {
 
-    let dropdown: any = this.domElement.querySelector('#year-dropdown');
-    if (dropdown) {
-      let options: any = [];
-      years.forEach((value: number) => {
-        // loop entries one by one
-        options.push(value);// = options + `<option class='dropdown-item' value='${value}'>${value}</option>`;
-      })
-      options = options.reverse();
-      let options2 = "";
-      for (let val of options) {
-        options2 = options2 + `<option class='dropdown-item' value='${val}'>${val}</option>`;
-      }
-      dropdown.innerHTML = `<div class="dropdown-menu year-dropdown-menu" aria-labelledby="year-dropdown">` + options2 + `</div>`;
-      this.BtnYearDDL.value = new Date().getFullYear().toString();
-    }
+    // let dropdown: any = this.domElement.querySelector('#year-dropdown');
+    // if (dropdown) {
+    //   let options: any = [];
+    //   years.forEach((value: number) => {
+    //     // loop entries one by one
+    //     options.push(value);// = options + `<option class='dropdown-item' value='${value}'>${value}</option>`;
+    //   })
+    //   options = options.reverse();
+    //   let options2 = "";
+    //   for (let val of options) {
+    //     options2 = options2 + `<option class='dropdown-item' value='${val}'>${val}</option>`;
+    //   }
+    //   dropdown.innerHTML = `<div class="dropdown-menu year-dropdown-menu" aria-labelledby="year-dropdown">` + options2 + `</div>`;
+    //   this.BtnYearDDL.value = new Date().getFullYear().toString();
+    // }
 
 
-    this.BtnMonthDDL = this.domElement.querySelector("#month-dropdown") as HTMLButtonElement;
+    // this.BtnMonthDDL = this.domElement.querySelector("#month-dropdown") as HTMLButtonElement;
 
-    //var currentMonth = new Date().toLocaleString('en-us',{month:'long', year:'numeric'}).toString().split(' ')[0];
-    this.BtnMonthDDL.value = "All";
-    if (this.BtnMonthDDL !== null) {
-      this.BtnMonthDDL.addEventListener("change", () => this.DDLChangeYearMonth());
-    }
+    // //var currentMonth = new Date().toLocaleString('en-us',{month:'long', year:'numeric'}).toString().split(' ')[0];
+    // this.BtnMonthDDL.value = "All";
+    // if (this.BtnMonthDDL !== null) {
+    //   this.BtnMonthDDL.addEventListener("change", () => this.DDLChangeYearMonth());
+    // }
 
     this.BtnLoadMoreSpecialOffers = this.domElement.querySelector("#BtnLoadMoreSpecialOffers") as HTMLButtonElement;
     if (this.BtnLoadMoreSpecialOffers !== null) {
@@ -150,8 +154,78 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
     // this.loadItems();
     this.DDLChangeYearMonth();
   }
+      private DDLChangeYearMonth(): void {
 
-  private loadItems(): void {
+    this.filterCriteria = [];
+    // var DDLSelectedMonth = (<HTMLInputElement>document.getElementById("month-dropdown")).value.toLowerCase();
+    // var MonthNumber: any;
+    // var DayEnd: any;
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "january") {
+    //   MonthNumber = '01'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "february") {
+    //   MonthNumber = '02'
+    //   DayEnd = '28'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "march") {
+    //   MonthNumber = '03'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "april") {
+    //   MonthNumber = '04'
+    //   DayEnd = '30'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "may") {
+    //   MonthNumber = '05'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "june") {
+    //   MonthNumber = '06'
+    //   DayEnd = '30'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "july") {
+    //   MonthNumber = '07'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "august") {
+    //   MonthNumber = '08'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "september") {
+    //   MonthNumber = '09'
+    //   DayEnd = '30'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "october") {
+    //   MonthNumber = '10'
+    //   DayEnd = '31'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "november") {
+    //   MonthNumber = '11'
+    //   DayEnd = '30'
+    // }
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "december") {
+    //   MonthNumber = '12'
+    //   DayEnd = '31'
+    // }
+    // var DDLSelectedYear = (<HTMLInputElement>document.getElementById("")).value;
+
+    // var monthstartString = `${DDLSelectedYear}-${MonthNumber}-01`
+    // var monthendString = `${DDLSelectedYear}-${MonthNumber}-${DayEnd}`
+    // if (DDLSelectedMonth.toLocaleLowerCase() == "all") {
+    //   var monthstartString = `${DDLSelectedYear}-01-01`
+    //   var monthendString = `${DDLSelectedYear}-12-31`
+    // }
+
+    var Datefilter = `OfferName eq '${this.selectedTab}' and DMCCIsActive eq 1  ` //and (DMCCEndDate ge '${this.today}')
+    this.filterCriteria.push(`${Datefilter}`);
+    console.log("Month :" + this.filterCriteria);
+
+    this.itemsToDisplay = 6;
+    this.loadItems();
+  }
+
+ private loadItems(): void {
 
 
     var filter;
@@ -171,8 +245,11 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
     }
 
     if (filter == `$filter=`) filter = ``;
+    let topCount = (this.searchNewText && this.searchNewText !== "") ? 5000 : this.itemsToDisplay;
+     this.baseUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.listName}')/items?${filter}&$top=${topCount}&$orderby=DMCCStartDate desc`;
 
-    this.baseUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.listName}')/items?${filter}&$top=${this.itemsToDisplay}&$orderby=DMCCStartDate desc`;
+
+    // this.baseUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('${this.listName}')/items?${filter}&$top=${this.itemsToDisplay}&$orderby=DMCCStartDate desc`;
     console.log(this.baseUrl);
 
     /*const listName = "SpecialOffers";  
@@ -186,8 +263,9 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
           throw new Error(`Error fetching data: ${response.statusText}`);
         }
       })
-      .then((data) => {
+      .then(async (data) => {
         this.items = data.value;
+        await this.fetchCounts();
         this.renderItems();
       })
       .catch((error) => {
@@ -198,6 +276,168 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
   private loadMoreItems(): void {
     this.itemsToDisplay += 6; // Increase the number of items to display
     this.loadItems();
+  }
+
+
+  private SearchBoxMethod(event: any): void {
+
+        console.log(`key=${event.key},code=${event.code}`);
+        this.SearchTextInput = this.domElement.querySelector("#searchSpecialOffersId") as HTMLInputElement;
+        this.stringFilter = '';
+  
+        if (!this.SearchTextInput.value) {
+
+          if (this.SearchTextInput.value.length > 0) this.searchNewText = this.SearchTextInput.value;
+          else { this.searchNewText = ""; this.stringFilter = ""; }
+        }
+        else {
+
+          this.searchNewText = this.SearchTextInput.value;
+          this.stringFilter = "";//`substringof('${this.SearchTextInput.value}',Title)`
+
+        }
+
+        this.DDLChangeYearMonth();
+
+  }
+
+
+
+private async fetchCounts(): Promise<void> {
+  this.countsMap = new Map<number, { likeCount: number; commentCount: number }>();
+
+  await Promise.all(this.items.map(async (item) => {
+    const likeCount = await this._getLikeCount(Number(item.ID));
+    const commentCount = await this._getCommentCount(Number(item.ID));
+    this.countsMap.set(item.ID, { likeCount, commentCount });
+  }));
+}
+
+
+ private renderItems(): void {
+    const SpecialOfferList = this.domElement.querySelector("#SpecialOfferListings");
+
+    const tempElement = document.createElement('div');
+
+    if (SpecialOfferList) {
+      SpecialOfferList.innerHTML = ""; // Clear existing items
+
+
+      if (this.items.length < this.itemsToDisplay) {
+        this.BtnLoadMoreSpecialOffers.style.visibility = "hidden";
+      }
+      else if (this.items.length >= this.itemsToDisplay) {
+        this.BtnLoadMoreSpecialOffers.style.visibility = "visible";
+      }
+
+
+      let items2 = this.items;
+      if (this.searchNewText && this.searchNewText != "") {
+        items2 = [];
+        for (var x = 0; x < this.items.length; x++) {
+
+          let item = this.items[x];
+          if ((item.Title != null && item.Title.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCShortDesc != null && item.DMCCShortDesc.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCContents != null && item.DMCCContents.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCDepartment != null && item.DMCCDepartment.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCLocation != null && item.DMCCLocation.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCShopName != null && item.DMCCShopName.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+            (item.DMCCDiscountCode != null && item.DMCCDiscountCode.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1)) {
+            items2.push(item);
+          }
+        }
+        
+      } else { items2 = this.items; }
+
+    if (items2.length >= this.itemsToDisplay) {
+        this.BtnLoadMoreSpecialOffers.style.visibility = "visible";
+      } else {
+        this.BtnLoadMoreSpecialOffers.style.visibility = "hidden";
+      }
+
+  // Only display up to itemsToDisplay
+  const itemsToRender = items2.slice(0, this.itemsToDisplay);
+
+
+    let allElementsHtml: any = "";
+
+      itemsToRender.forEach((item) => {
+        let DMCCImage: any = item.DMCCImage;
+
+        tempElement.innerHTML = item.DMCCShortDesc;
+        item.DMCCShortDesc = (tempElement.textContent + "").substring(0, 81);
+
+        /*if(item.DMCCImage !== null){ DMCCImage = window.location.protocol + "//" + window.location.host + 
+        (DMCCImage.match('serverRelativeUrl":(.*),"id')[1].split('"', 2)[1]);
+        }*/
+
+        if(item.OfferName == 'Bayzat Offer'){
+          if(item.BayzatOfferImageLink == null){
+            DMCCImage =  `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;      
+          }
+          else{
+            DMCCImage = item.BayzatOfferImageLink;
+          }         
+        }
+        else if (DMCCImage == undefined || DMCCImage == null) 
+          {
+            DMCCImage =  `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;      
+          }
+        else if(item.DMCCImage.match('serverRelativeUrl') == null){
+        var Image = JSON.parse(item.DMCCImage).fileName;
+        DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/Lists/SpecialOffers/Attachments/${item.ID}/${Image}`;
+        }
+        else{
+          DMCCImage = window.location.protocol + "//" + window.location.host + 
+          (DMCCImage.match('serverRelativeUrl":(.*),"id')[1].split('"', 2)[1]);
+        }
+
+
+     /*   if (item.DMCCImage == null || DMCCImage.match('serverRelativeUrl":(.*),"id') == null) {
+          DMCCImage = `${this._FirstSite}/SiteAssets/images/default.jpg`;
+        }
+        else {
+          DMCCImage = window.location.protocol + "//" + window.location.host +
+            (DMCCImage.match('serverRelativeUrl":(.*),"id')[1].split('"', 2)[1]);
+        }*/
+
+
+
+        let SpecialOfferDate: Date;
+
+        let SpecialOffersListingHtml = this.dmccSpecialOffers.SpecialOffersListingHtml;
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace(new RegExp("_FirstSite", "g"), this._FirstSite);
+
+        SpecialOfferDate = new Date(item.DMCCStartDate);
+        const options = { month: 'long' } as const;
+        let monthname = new Intl.DateTimeFormat('en-US', options).format(SpecialOfferDate);
+        let Month = monthname.toString().substring(0, 3);
+        let Day = SpecialOfferDate.toString().split(' ', 3)[2];
+        var Year = SpecialOfferDate.toString().split(' ', 4)[3];
+   
+ const counts = this.countsMap.get(item.ID);
+const likeCount = counts ? counts.likeCount : 0;
+const commentCount = counts ? counts.commentCount : 0;
+
+
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#DAY", Day + "");
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#MONTH", Month + "");
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#YEAR", Year + "");
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#CONTENTS", item.DMCCShortDesc + "");
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#IMGSRC", DMCCImage + "");
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#SpecialOfferID", item.ID)
+        SpecialOffersListingHtml = SpecialOffersListingHtml.replace(/#LIKEID/g, item.ID.toString())
+         SpecialOffersListingHtml = SpecialOffersListingHtml .replace("#LIKECOUNT", likeCount.toString())
+          SpecialOffersListingHtml = SpecialOffersListingHtml .replace(/#ITEMID/g, item.ID.toString())
+         SpecialOffersListingHtml = SpecialOffersListingHtml.replace("#CMCNT", commentCount.toString());
+
+        allElementsHtml += SpecialOffersListingHtml;
+
+      });
+      SpecialOfferList.innerHTML = allElementsHtml;
+this._registerAnnoLikeHandlers();
+    }
   }
 
   // private renderItems(): void {
@@ -306,97 +546,18 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
 
   //   }
   // }
-  private async renderItems(): Promise<void> {
-    const SpecialOfferList = this.domElement.querySelector("#SpecialOfferListings");
-    const tempElement = document.createElement('div');
   
-    if (!SpecialOfferList) return;
-  
-    SpecialOfferList.innerHTML = ""; // Clear existing items
-  
-    this.BtnLoadMoreSpecialOffers.style.visibility =
-      this.items.length < this.itemsToDisplay ? "hidden" : "visible";
-  
-    let items2 = this.items;
-  
-    if (this.searchNewText && this.searchNewText.trim() !== "") {
-      const searchLower = this.searchNewText.toLowerCase();
-      items2 = this.items.filter(item =>
-        (item.Title && item.Title.toLowerCase().includes(searchLower)) ||
-        (item.DMCCShortDesc && item.DMCCShortDesc.toLowerCase().includes(searchLower)) ||
-        (item.DMCCContents && item.DMCCContents.toLowerCase().includes(searchLower)) ||
-        (item.DMCCDepartment && item.DMCCDepartment.toLowerCase().includes(searchLower)) ||
-        (item.DMCCLocation && item.DMCCLocation.toLowerCase().includes(searchLower)) ||
-        (item.DMCCShopName && item.DMCCShopName.toLowerCase().includes(searchLower)) ||
-        (item.DMCCDiscountCode && item.DMCCDiscountCode.toLowerCase().includes(searchLower))
-      );
-    }
-  
-    let allElementsHtml = "";
-  
-    for (const item of items2) {
-      let DMCCImage: string = "";
-  
-      // Safely truncate description
-      tempElement.innerHTML = item.DMCCShortDesc || "";
-      item.DMCCShortDesc = (tempElement.textContent || "").substring(0, 81);
-  
-      if (item.OfferName === 'Bayzat Offer') {
-        DMCCImage = item.BayzatOfferImageLink || `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
-      } else if (!item.DMCCImage) {
-        DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
-      } else {
-        try {
-          const parsedImage = JSON.parse(item.DMCCImage);
-          if (parsedImage.serverRelativeUrl) {
-            DMCCImage = `${window.location.protocol}//${window.location.host}${parsedImage.serverRelativeUrl}`;
-          } else if (parsedImage.fileName) {
-            DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/Lists/SpecialOffers/Attachments/${item.ID}/${parsedImage.fileName}`;
-          }
-        } catch (e) {
-          DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
-        }
-      }
-  
-      const SpecialOfferDate = new Date(item.DMCCStartDate);
-      const options = { month: 'long' } as const;
-      const Month = new Intl.DateTimeFormat('en-US', options).format(SpecialOfferDate).substring(0, 3);
-      const Day = SpecialOfferDate.toDateString().split(' ')[2];
-      const Year = SpecialOfferDate.toDateString().split(' ')[3];
-  
-      const likeCount = await this._getLikeCount(Number(item.ID));
-      const commentCount = await this._getCommentCount(Number(item.ID));
-  
-      let html = this.dmccSpecialOffers.SpecialOffersListingHtml;
-      html = html.replace(/_FirstSite/g, this._FirstSite)
-                 .replace("#DAY", Day)
-                 .replace("#MONTH", Month)
-                 .replace("#YEAR", Year)
-                 .replace("#CONTENTS", item.DMCCShortDesc)
-                 .replace("#IMGSRC", DMCCImage)
-                 .replace(/#SpecialOfferID/g, item.ID.toString())
-                 .replace(/#LIKEID/g, item.ID.toString())
-                 .replace("#LIKECOUNT", likeCount.toString())
-                 .replace(/#ITEMID/g, item.ID.toString())
-                 .replace("#CMCNT", commentCount.toString());
-  
-      allElementsHtml += html;
-    }
-  
-    SpecialOfferList.innerHTML = allElementsHtml;
-    this._registerAnnoLikeHandlers();
-  }
   
   private _registerAnnoLikeHandlers(): void {
-    this.domElement.querySelectorAll('.spclOffer-like-icon').forEach(icon => {
+    this.domElement.querySelectorAll('.like-icon').forEach(icon => {
       icon.addEventListener('click', async (event: any) => {
         const likeId = parseInt(event.target.getAttribute('data-like-id'));
         await this._handleLikeClick(likeId);
       });
     });
-    this.domElement.querySelectorAll('.spclOffer-like-count').forEach(span => {
+    this.domElement.querySelectorAll('.like-count').forEach(span => {
       span.addEventListener('click', async (event: MouseEvent) => {
-        const announcementId = parseInt((event.target as HTMLElement).id.replace('spclOffer-like-count-', ''));
+        const announcementId = parseInt((event.target as HTMLElement).id.replace('like-count-', ''));
         const users = await this._getLikedUsers(announcementId);
         this._showLikeUserPopup(users, event);
       });
@@ -508,7 +669,7 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
     }
   
     const updatedCount = await this._getLikeCount(offerId);
-    const countSpan = this.domElement.querySelector(`#spclOffer-like-count-${offerId}`);
+    const countSpan = this.domElement.querySelector(`#like-count-${offerId}`);
     if (countSpan) countSpan.textContent = `Like (${updatedCount})`;
   }
   
@@ -637,99 +798,6 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
     return await res.json();
   }
 
-  private DDLChangeYearMonth(): void {
-
-    this.filterCriteria = [];
-    var DDLSelectedMonth = (<HTMLInputElement>document.getElementById("month-dropdown")).value.toLowerCase();
-    var MonthNumber: any;
-    var DayEnd: any;
-    if (DDLSelectedMonth.toLocaleLowerCase() == "january") {
-      MonthNumber = '01'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "february") {
-      MonthNumber = '02'
-      DayEnd = '28'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "march") {
-      MonthNumber = '03'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "april") {
-      MonthNumber = '04'
-      DayEnd = '30'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "may") {
-      MonthNumber = '05'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "june") {
-      MonthNumber = '06'
-      DayEnd = '30'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "july") {
-      MonthNumber = '07'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "august") {
-      MonthNumber = '08'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "september") {
-      MonthNumber = '09'
-      DayEnd = '30'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "october") {
-      MonthNumber = '10'
-      DayEnd = '31'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "november") {
-      MonthNumber = '11'
-      DayEnd = '30'
-    }
-    if (DDLSelectedMonth.toLocaleLowerCase() == "december") {
-      MonthNumber = '12'
-      DayEnd = '31'
-    }
-    var DDLSelectedYear = (<HTMLInputElement>document.getElementById("year-dropdown")).value;
-
-    var monthstartString = `${DDLSelectedYear}-${MonthNumber}-01`
-    var monthendString = `${DDLSelectedYear}-${MonthNumber}-${DayEnd}`
-    if (DDLSelectedMonth.toLocaleLowerCase() == "all") {
-      var monthstartString = `${DDLSelectedYear}-01-01`
-      var monthendString = `${DDLSelectedYear}-12-31`
-    }
-
-    var Datefilter = `OfferName eq '${this.selectedTab}' and DMCCIsActive eq 1 and ((DMCCStartDate  ge '${monthstartString}')) and (DMCCStartDate le '${monthendString}') ` //and (DMCCEndDate ge '${this.today}')
-    this.filterCriteria.push(`${Datefilter}`);
-    console.log("Month :" + this.filterCriteria);
-
-    this.itemsToDisplay = 6;
-    this.loadItems();
-  }
-
-  private SearchBoxMethod(event: any): void {
-
-    console.log(`key=${event.key},code=${event.code}`);
-    this.SearchTextInput = this.domElement.querySelector("#searchSpecialOffersId") as HTMLInputElement;
-    this.stringFilter = '';
-
-    if (!this.SearchTextInput.value) {
-
-      if (this.SearchTextInput.value.length > 0) this.searchNewText = this.SearchTextInput.value;
-      else { this.searchNewText = ""; this.stringFilter = ""; }
-    }
-    else {
-
-      this.searchNewText = this.SearchTextInput.value;
-      this.stringFilter = "";//`substringof('${this.SearchTextInput.value}',Title)`
-
-    }
-
-    this.DDLChangeYearMonth();
-
-  }
-
   public render(): void {
     const workbenchContent = document.getElementById('workbenchPageContent'); 
 
@@ -752,11 +820,11 @@ export default class SpecialOffersListingUatWebPart extends BaseClientSideWebPar
     }*/
 
 
-    this.BtnYearDDL = this.domElement.querySelector("#year-dropdown") as HTMLButtonElement;
-    this.BtnYearDDL.value = new Date().getFullYear().toString();
-    if (this.BtnYearDDL !== null) {
-      this.BtnYearDDL.addEventListener("change", () => this.DDLChangeYearMonth());
-    }
+    // this.BtnYearDDL = this.domElement.querySelector("#year-dropdown") as HTMLButtonElement;
+    // this.BtnYearDDL.value = new Date().getFullYear().toString();
+    // if (this.BtnYearDDL !== null) {
+    //   this.BtnYearDDL.addEventListener("change", () => this.DDLChangeYearMonth());
+    // }
 
     bayzatOfferTab = this.domElement.querySelector("#bayzatOfferTab") as HTMLButtonElement;
     if (bayzatOfferTab !== null) {

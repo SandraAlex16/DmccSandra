@@ -15,6 +15,8 @@ import DmccHomeVideoGallery from './DmccHomeVideoGallery';
 import DmccHomeNewJoinee from './DmccHomeNewJoinee';
 import DmccHomeNewVacancies from './DmccHomeNewVacancies';
 // import { SPComponentLoader } from '@microsoft/sp-loader';
+import DmccHomeJLTOffers from './DmccHomeJLTOffer';
+import DmccHomeUptownOffers from './DmccHomeUPTOWNOffers '
 
 export interface IHomeVideoGalleryWebPartProps {
   description: string;
@@ -25,7 +27,10 @@ export interface ISPLists {
 }
 
 export interface ISPList {
+  LinkUrl: any;
+
   ID: any;
+   Image: any;
   VideoURL: {
     Url: string;
   }
@@ -42,7 +47,11 @@ export interface ISPList {
   Department: string;
   EmployeeImage: any;
   Icon: any;
+  ShortDescription: string;
+   Title: string;
+   VideoThumbnail: any;
 }
+
 
 export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHomeVideoGalleryWebPartProps> {
 
@@ -60,35 +69,48 @@ export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHome
       });
   }
 
-  private async _renderListAsync(listName: string, apiUrl: string): Promise<any> {
+private async _renderListAsync(listName: string, apiUrl: string): Promise<any> {
+    console.log("Calling _renderListAsync for list:", listName);
     await this._getListData(apiUrl)
       .then((response) => {
         switch (listName) {
+   
           case "VideoGallery": this._renderVideoGallery(response.value); break;
           case "NewJoinee": this._renderNewJoinee(response.value); break;
           case "NewVacancies": this._renderNewVacancies(response.value); break;
+          case "JLTOffers":this._renderJLTOfferList(response.value); break;
+           case "UPTOWNOffers": this._renderUpTownOfferList(response.value); break;   
+         
+
+          
         }
       });
   }
 
-  private _renderVideoGallery(items: ISPList[]): void {
-
+ private _renderVideoGallery(items: ISPList[]): void {
+ 
     let allElementsHtml: string = "";
-
+ 
     items.forEach((item: ISPList) => {
+      // console.log(item);
       let singleElementHtml: string = DmccHomeVideoGallery.singleElementHtml;
-      let imageSrc: any = item.File.ServerRelativeUrl;
+      let imageSrc: any = '';
+      if(!(item.VideoThumbnail === null)) {
+        const pictureData = JSON.parse(item.VideoThumbnail);
+        const fileName = pictureData.fileName;
+        imageSrc = `${this._FirstSite}/Lists/Video Gallery/Attachments/${item.ID}/${fileName}`;
+      }
       singleElementHtml = singleElementHtml.replace("#IMGSRC", imageSrc + "");
       singleElementHtml = singleElementHtml.replace("#VDOURL", item.VideoURL.Url + "");
       allElementsHtml += singleElementHtml;
     });
-
+ 
     if (allElementsHtml == "") { allElementsHtml = DmccHomeVideoGallery.noRecord; }
-
+ 
     const divVideoGalAllElements: Element | null = this.domElement.querySelector('#divVideoGalAllElements');
     if (divVideoGalAllElements != null) divVideoGalAllElements.innerHTML = allElementsHtml;
   }
-
+ 
   private _renderNewJoinee(items: ISPList[]): void {
 
     let allElementsHtml: string = "";
@@ -119,7 +141,7 @@ export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHome
   }
 
   private _renderNewVacancies(items: ISPList[]): void {
-
+console.log("vedio gallery")
     let allElementsHtml: string = "";
 
     items.forEach((item: ISPList) => {
@@ -167,8 +189,96 @@ export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHome
     });
   }
 
-  public async render(): Promise<any> {
+ private _renderJLTOfferList(items: ISPList[]): void {
 
+    let allElementsHtml: string = "";
+   items.forEach((item: ISPList) => {
+  let singleElementHtml: string = DmccHomeJLTOffers.singleElementHtml; // move this INSIDE the loop
+
+   let DMCCImage:any=item.Image; 
+        DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
+
+        if (item.Image) {
+          try {
+            const imageObj = JSON.parse(item.Image);
+            
+            if (imageObj?.serverRelativeUrl) {
+              DMCCImage = `${window.location.protocol}//${window.location.host}${imageObj.serverRelativeUrl}`;
+            } else if (imageObj?.fileName) {
+              DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/Lists/JLTOffers/Attachments/${item.ID}/${imageObj.fileName}`;
+            }
+          } catch (error) {
+            console.warn(`Could not parse Image for item ID ${item.ID}`, error);
+          }
+        }
+
+
+  singleElementHtml = singleElementHtml.replace("#TITLE", item.Title + "");
+  singleElementHtml = singleElementHtml.replace("#IMGSRC", DMCCImage + "");
+  singleElementHtml = singleElementHtml.replace("#SHORTDESC", item.ShortDescription + "");
+  singleElementHtml = singleElementHtml.replace("#URL",item.LinkUrl?.Url?? "#");
+
+  allElementsHtml += singleElementHtml;
+});
+
+
+    if (allElementsHtml == "") { allElementsHtml = DmccHomeJLTOffers.noRecord; }
+
+    const divHomeSpecialOffer: Element | null = this.domElement.querySelector('#divHomeSpecialOffer');
+    if (divHomeSpecialOffer !== null) divHomeSpecialOffer.innerHTML = allElementsHtml;
+
+  }
+  private _renderUpTownOfferList(items: ISPList[]): void {
+ 
+    let allElementsHtml: string = "";
+
+   items.forEach((item: ISPList) => {
+  let singleElementHtml: string = DmccHomeUptownOffers.singleElementHtml;
+ 
+   let DMCCImage:any=item.Image; 
+       DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
+
+          if (item.Image) {
+            try {
+              const imageObj = JSON.parse(item.Image);
+
+              if (imageObj?.serverRelativeUrl) {
+                DMCCImage = `${window.location.protocol}//${window.location.host}${imageObj.serverRelativeUrl}`;
+              } else if (imageObj?.fileName) {
+                DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/Lists/UPTOWNOffers/Attachments/${item.ID}/${imageObj.fileName}`;
+              }
+            } catch (error) {
+              console.warn(`Could not parse Image for item ID ${item.ID}`, error);
+            }
+          }
+
+
+  singleElementHtml = singleElementHtml.replace("#TITLE", item.Title + "");
+  singleElementHtml = singleElementHtml.replace("#IMGSRC", DMCCImage + "");
+  singleElementHtml = singleElementHtml.replace("#SHORTDESC", item.ShortDescription + "");
+  singleElementHtml = singleElementHtml.replace("#URL",item.LinkUrl?.Url?? "#");
+
+  allElementsHtml += singleElementHtml;
+});
+
+    if (allElementsHtml == "") { allElementsHtml = DmccHomeUptownOffers.noRecord; }
+
+    const divHomeUptownOffer: Element | null = this.domElement.querySelector('#divHomeUptownOffer');
+    if (divHomeUptownOffer !== null) divHomeUptownOffer.innerHTML = allElementsHtml;
+
+  }
+
+
+
+
+  public async render(): Promise<any> {
+ const workbenchContent = document.getElementById('workbenchPageContent'); 
+
+      if (workbenchContent) { 
+    
+        workbenchContent.style.maxWidth = 'none'; 
+    
+      }
     this.domElement.innerHTML = 
       `
 <div class="w-100 float-start">
@@ -178,13 +288,24 @@ export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHome
     ${DmccHomeVideoGallery.html}
         
     ${DmccHomeNewVacancies.Html}
+     ${DmccHomeJLTOffers.html}
+     ${DmccHomeUptownOffers.html}
   </div>
 </div>
  `;
+const isoToday = new Date().toISOString().split('T')[0] + 'T00:00:00Z';
+
 
     // VIDEO GALLERY
-    let apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('VideoGallery')/items?$top=8&$select=*,File/ServerRelativeUrl&$expand=File&$filter=FSObjType%20eq%200&$orderby=Modified%20desc`;
-    await this._renderListAsync("VideoGallery", apiUrl); 
+    let apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('Video Gallery')/items?$top=8&$select=*&$orderby=Modified%20desc`;
+    await this._renderListAsync("VideoGallery", apiUrl);
+
+//  JLT OFFERS
+    apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('JLTOffers')/items?$top=3&$filter=IsActive eq 1 and EndDate ge datetime'${isoToday}'&$orderby=Modified%20desc&$select=ID,Title,Image,ShortDescription,LinkUrl`;
+    await this._renderListAsync("JLTOffers", apiUrl);
+// UPTOWN OFFERS
+    apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('UPTOWNOffers')/items?$top=3&$filter=IsActive eq 1 and EndDate ge datetime'${isoToday}'&$orderby=Modified%20desc&$select=ID,Title,Image,ShortDescription,LinkUrl`;
+    await this._renderListAsync("UPTOWNOffers", apiUrl);
 
     // NEW JOINEES
     apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('NewJoinees')/items?$top=3&$select=ID,EmployeeName/Title,Position,Department,ReadMoreLink,EmployeeImage&$expand=EmployeeName&$filter=IsActive eq 1&$orderby=Modified%20desc`;
@@ -193,6 +314,11 @@ export default class HomeVideoGalleryWebPart extends BaseClientSideWebPart<IHome
     // NEW VACANCIES
     apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('NewVacancies')/items?$top=3&$select=ID,Position,Department,ReadMoreLink,Icon&$filter=IsActive eq 1&$orderby=Modified%20desc`;
     await this._renderListAsync("NewVacancies", apiUrl); 
+    
+   
+
+
+    
   }
 
   protected onInit(): Promise<void> {

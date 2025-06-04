@@ -65,7 +65,8 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
   public today = new Date().toISOString().slice(0, 20) + "000Z";
   //public StartAndEndDate =  `and (datetime'${this.today}' ge DMCCStartDate and datetime'${this.today}' le DMCCEndDate)`;
 
-  private _FirstSite = "/sites/DMCC-Intranet-Prod";
+  // private _FirstSite = "/sites/DMCC-Intranet-Prod";
+  private _FirstSite = "/sites/DMCCDev";
   private dmccNews = new dmccNews();
 
 

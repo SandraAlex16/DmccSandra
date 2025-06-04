@@ -564,11 +564,11 @@ private async _getCurrentUser(): Promise<any> {
       const userInfo = await res.json();
   
       const groups: any[] = userInfo.Groups || [];
-      const adminGroupName = 'Global Contributors – HR'; // Exact match with en-dash character
+      const adminGroupName = 'Global Contributors – HR'; 
   
       // Log current user details for debugging
       console.log("Current user:", userInfo);
-      console.log("User groups:", groups.map(g => g.Title)); // Log the group titles for clarity
+      console.log("User groups:", groups.map(g => g.Title)); 
   
       // Check if user belongs to the 'Global Contributors – HR' group
       const isAdmin = groups.some(g => g.Title === adminGroupName);

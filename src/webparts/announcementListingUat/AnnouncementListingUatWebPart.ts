@@ -365,20 +365,19 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
   
       announcementList.innerHTML = allElementsHtml;
     }
-  
     this._registerAnnoLikeHandlers();
   }
   
   private _registerAnnoLikeHandlers(): void {
-    this.domElement.querySelectorAll('.announcement-like-icon').forEach(icon => {
+    this.domElement.querySelectorAll('.like-icon').forEach(icon => {
       icon.addEventListener('click', async (event: any) => {
         const likeId = parseInt(event.target.getAttribute('data-like-id'));
         await this._handleAnnoLikeClick(likeId);
       });
     });
-    this.domElement.querySelectorAll('.announcement-like-count').forEach(span => {
+    this.domElement.querySelectorAll('.like-count').forEach(span => {
       span.addEventListener('click', async (event: MouseEvent) => {
-        const announcementId = parseInt((event.target as HTMLElement).id.replace('announcement-like-count-', ''));
+        const announcementId = parseInt((event.target as HTMLElement).id.replace('like-count-', ''));
         const users = await this._getLikedUsers(announcementId);
         this._showLikeUserPopup(users, event);
       });
@@ -480,6 +479,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
   }
   
 
+
   private async _handleAnnoLikeClick(announcementId: number): Promise<void> {
     const currentUser = await this._getCurrentUser();
     const existingLike = await this._getExistingAnnoLike(announcementId, currentUser.Id);
@@ -491,7 +491,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
     }
   
     const updatedCount = await this._getAnnoLikeCount(announcementId);
-    const countSpan = this.domElement.querySelector(`#announcement-like-count-${announcementId}`);
+    const countSpan = this.domElement.querySelector(`#like-count-${announcementId}`);
     if (countSpan) countSpan.textContent = `Like (${updatedCount})`;
   }
 

@@ -29,7 +29,8 @@ export interface ISPList {
   File: {
     ServerRelativeUrl: string;
   }
-  VideoTitle: string;
+  Title: string;
+  VideoThumbnail: any;
   
 }
 
@@ -62,10 +63,15 @@ export default class VideoGalleryListingWebPart extends BaseClientSideWebPart<IV
 
     items.forEach((item: ISPList) => {
       let singleElementHtml: string = DmccVideoGalleryListing.galleryElement;
-      let imageSrc: any = item.File.ServerRelativeUrl;
+      let imageSrc: any = '';
+      if(!(item.VideoThumbnail === null)) {
+        const pictureData = JSON.parse(item.VideoThumbnail);
+        const fileName = pictureData.fileName;
+        imageSrc = `${this._FirstSite}/Lists/Video Gallery/Attachments/${item.ID}/${fileName}`;
+      }
       let videoTitle: string = ""
-      if(!(item.VideoTitle === null)) {
-        videoTitle = item.VideoTitle;
+      if(!(item.Title === null)) {
+        videoTitle = item.Title;
       }
       singleElementHtml = singleElementHtml.replace("#IMGSRC", imageSrc + "");
       singleElementHtml = singleElementHtml.replace("#VDOURL", item.VideoURL.Url + "");
@@ -113,7 +119,7 @@ export default class VideoGalleryListingWebPart extends BaseClientSideWebPart<IV
   </div>
     `;
 
-    let apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('VideoGallery')/items?$select=*,File/ServerRelativeUrl,File/VideoTitle&$expand=File&$filter=FSObjType%20eq%200&$orderby=Modified%20desc`;
+    let apiUrl = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/GetByTitle('Video Gallery')/items?$select=*&$orderby=Modified%20desc`;
     await this._renderListAsync(apiUrl); 
   }
 

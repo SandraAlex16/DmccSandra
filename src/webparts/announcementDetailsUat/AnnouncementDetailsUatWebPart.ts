@@ -408,7 +408,7 @@ export default class AnnouncementDetailsUatWebPart extends BaseClientSideWebPart
     }
   
     const updatedCount = await this._getAnnoLikeCount(announcementId);
-    const countSpan = this.domElement.querySelector(`#announcement-like-count-${announcementId}`);
+    const countSpan = this.domElement.querySelector(`#like-count-${announcementId}`);
     if (countSpan) countSpan.textContent = `Like (${updatedCount})`;
   }
 

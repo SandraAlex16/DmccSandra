@@ -4,51 +4,43 @@ export default class DmccUpcomingEvents
     public   singleElementHtml:string=` 
 
     <div class="col-md-4 float-start">
-        <div class="w-100 h-100 float-start d-flex flex-column align-items-start border">
-          <div class="w-100 float-start position-relative">
-            <div
-              class="date-box-news position-absolute text-white top-0 start-0 d-flex flex-column align-items-center justify-content-center">
-              <p class="m-0 p-0 font-MyriadProBold">#DAY</p>
-              <span class="text-sm font-MyriadProSemibold">#MONTH #YEAR</span>
-            </div>
-            <img class="w-100 max-h-260 object-cover-center news-img-list" src="#IMGSRC" />
-          </div>
-
-          <div class="w-100 float-start p-3">
-            <div class="row" style="padding:0 0 10px 0">
-                    
-                        <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?env=WebView&UpcomingEventsID=#UpcomingEventsID"
-                        class="text-lg gp-text-dark float-start m-0 lh-base text-decoration-none font-MyriadProBold">
-                        #TITLE</a>
-            </div>
-            <div class=" ">
-                      <span class="pe-1">Location:</span>
-                        <span class="font-MyriadProBold">#LOCATION</span> 
-            
-                        <div class="d-flex w-100 float-start align-items-center mt-4">
-                        <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?env=WebView&UpcomingEventsID=#UpcomingEventsID"
-                        class="d-flex align-items-center gap-1 font-MyriadProSemibold gp-text-dark pt-1 cursor-pointer text-decoration-none">Read
-                        More
-                        <img src="_FirstSite/SiteAssets/images/icons/arrow-right-line.png" /></a>
-                        <div class="d-flex align-items-center" style="margin-left: 40px;">
-
-                <img class="mw-px-18 me-1 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like.png" 
-                     alt="Like" title="Like" data-like-id="#LIKEID" />
-              <span class="text-sm text-dark like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</span>
-                
-    <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?eventId=#LIKEID#scrollToComments"  class="d-flex align-items-center text-decoration-none ms-3">
-            <img class="mw-px-18 me-1 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/commentNew.png" 
-                alt="Comment" title="Comment" />
-            <span class="text-sm" style="color: black;">Comment (#CMCNT)</span>
-          </a>
-            </div>
+                  <div class="w-100 h-100 float-start d-flex flex-column gap-3 pb-2 justify-content-between border">
+                    <div class="w-100 d-flex flex-column">
+                      <div class="w-100 float-start position-relative">
+                        <div
+                          class="date-box-news position-absolute text-white top-0 start-0 d-flex flex-column align-items-center justify-content-center">
+                          <p class="m-0 p-0 font-MyriadProBold">#DAY</p>
+                          <span class="text-sm font-MyriadProSemibold">#MONTH #YEAR</span>
+                        </div>
+                        <img class="w-100 max-h-260 object-cover-center news-img-list" src="#IMGSRC" />
                       </div>
-                         
-            </div>
-          </div>
- 
-        </div>
-      </div>
+                      <div class="w-100 float-start p-3 d-flex flex-column gap-2">
+                        <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?env=Embedded&UpcomingEventsID=#UpcomingEventsID" class="dmcc-text-dark font-MyriadProSemibold font-size-22 float-start m-0 lh-sm text-decoration-none">
+                        #TITLE</a>
+                        <p class="text-lg dmcc-text-dark font-MyriadProSemibold float-start m-0 lh-sm text-decoration-none">
+                          <span>Location :</span> #LOCATION</p>
+                      </div>
+                    </div>
+                    <div class="w-100 d-flex flex-wrap gap-2 flex-shrink-0 justify-content-between align-items-center px-3">
+                      <div class="d-flex float-start align-items-center">
+                        <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?env=Embedded&UpcomingEventsID=#UpcomingEventsID"
+                          class="d-flex align-items-center gap-1 text-base dmcc-text-dark pt-1 cursor-pointer text-decoration-none">Read
+                          More
+                          <img class="mw-px-18" src="_FirstSite/SiteAssets/images/icons/arrow-right-line.png" /></a>
+                      </div>
+                      <div class="float-start d-flex align-items-center font-MyriadProRegular gap-2 flex-shrink-0">
+                          <div class="d-flex align-items-center gap-1 like-info">
+                            <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon-grey.png"  data-like-id="#LIKEID">
+                            <p class="text-base m-0 like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
+                          </div>
+                          <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?eventId=#LIKEID#scrollToComments" class="d-flex align-items-center gap-1 comment-link-btn">
+                              <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon-grey.png">
+                              <p class="text-base m-0">Comment (#CMCNT)</p>
+                            </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
       <!--<a class="text-lg gp-text-dark float-start m-0 lh-base text-decoration-none">
       #CONTENTS</a>-->
       <div id="likeEventUsersPopup" class="like-event-users-popup" style="display: none;"></div>

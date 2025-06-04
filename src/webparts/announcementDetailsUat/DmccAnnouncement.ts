@@ -17,7 +17,7 @@ export default class DmccAnnouncement {
         <a class="text-lg gp-text-dark pt-3 m-0 lh-base text-decoration-none">
         #CONTENTS</a>
      <div class="d-flex align-items-center mt-4">
-       <a href="_FirstSite/SitePages/Announcement-Detail-Page.aspx?env=WebView&AnnouncementID=#AnnouncementID"
+       <a href="_FirstSite/SitePages/Announcement-Detail-Page.aspx?env=Embedded&AnnouncementID=#AnnouncementID"
        class="d-flex align-items-center gap-1 font-MyriadProSemibold gp-text-dark pt-1 cursor-pointer text-decoration-none">Read
        More
        <img src="_FirstSite/SiteAssets/images/icons/arrow-right-line.png" /></a>
@@ -56,10 +56,10 @@ export default class DmccAnnouncement {
                   ANNOUNCEMENT DETAILS
                   </p>
                   <div class="flex-shrink-0 d-flex gap-2 top-title-links-wrapper mt-3 mb-2 mb-md-0 mt-md-0">
-                    <a href="_FirstSite/SitePages/Announcements.aspx?env=WebView" 
+                    <a href="_FirstSite/SitePages/Announcements.aspx?env=Embedded" 
                     class="dmcc-btn float-start px-4 py-2 dmcc-bg-primary text-sm  text-decoration-none font-MyriadProBold text-white text-nowrap">View
                     All</a>  
-                    <a href="_FirstSite/SitePages/Notice-Board.aspx?env=WebView" style="#ShowNoticeBoard"
+                    <a href="_FirstSite/SitePages/Notice-Board.aspx?env=Embedded" style="#ShowNoticeBoard"
                     class="dmcc-btn float-start px-4 py-2 dmcc-bg-primary text-sm  text-decoration-none font-MyriadProBold text-white text-nowrap">Notice Board
                     </a>                      
                   </div>
@@ -91,35 +91,33 @@ export default class DmccAnnouncement {
                        
                       </p>                   
                         <!-- Comment section HTML start -->
+                        
+                   
                     <div class="w-100 float-start d-flex align-items-center font-MyriadProRegular gap-3 mb-4">
                         <div class="d-flex align-items-center gap-2">
-                          <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon.png" alt="Like" title="Like" data-like-id="#LIKEID"/>
-                          <p class="text-base m-0 text-dark like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
+                          <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon-grey.png"  data-like-id="#LIKEID"/>
+                          <p class="text-base m-0 like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                          <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon.png" 
-                          alt="Comment" title="Comment" data-cmt-id="#CMTID"/>
-                          <p class="text-base m-0"  id="Cmt-count-#CMTID" >Comment(#CMCNT)</p>
+                          <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon-grey.png"/>
+                          <p class="text-base m-0" id="Cmt-count-#CMTID">Comment (#CMCNT)</p>
                         </div>
                     </div>
-                     <div class="comment-sec-wrapper w-100 float-start mb-4">
-                   <div class="w-100 float-start d-flex align-items-center comment-ip-wrapper gap-2">
-                     <img class="flex-shrink-0 comment-sec-avatar" src="#PROFILEIMG"/>
-                     <div class="w-100 float-start px-12 py-12 d-flex flex-column form-group-bg">
-                       <label for="subject" class="mb-1 font-MyriadProSemibold text-xs text-black">Add your comments</label>
-                       <textarea class="form-control dmcc-form-input text-base text-black" id="desc" placeholder="Write your comment...."></textarea>
-                     </div>
-                   </div>
-                   <div class="w-100 float-start d-flex justify-content-end mt-2">
-                     <button type="button" class="dmcc-btn news-details-btn align-self-center float-start px-3 py-1 text-sm font-MyriadProBold cursor-pointer" id="add-comment-btn">
-                       Send
-                     </button>
-                   </div>
-                   <div class="comment-list-wrapper custom-scroll-view w-100 float-start d-flex flex-column mt-3" id="commentsContainer">
-                     
+                    <div class="comment-sec-wrapper w-100 float-start mb-4">
+                      <div class="w-100 float-start d-flex align-items-center comment-ip-wrapper gap-2">
+                        <img class="flex-shrink-0 comment-sec-avatar" src="#PROFILEIMG"/>
+                        <div class="w-100 float-start px-12 py-12 d-flex flex-column form-group-bg position-relative">
+                          <label for="subject" class="mb-1 font-MyriadProSemibold text-xs text-black">Add your comments</label>
+                          <textarea class="form-control dmcc-form-input text-base text-black" id="desc" placeholder="Write your comment...."></textarea>
+                          <button type="button" class="dmcc-btn news-details-btn align-self-center float-start px-3 py-1 text-sm font-MyriadProBold cursor-pointer" id="add-comment-btn">
+                           Send
+                          </button>
+                        </div>
+                      </div>
+                      <div class="comment-list-wrapper custom-scroll-view w-100 float-start d-flex flex-column mt-3" id="commentsContainer">
 
-                   </div>
-                 </div>
+                      </div>
+                    </div>
                     <!-- Comment section HTML end -->
 
                     </div>

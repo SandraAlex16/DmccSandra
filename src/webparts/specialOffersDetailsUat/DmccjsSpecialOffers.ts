@@ -30,7 +30,7 @@ export default class DmccjsSpecialOffers
         <p class="text-lg gp-text-dark pt-3 m-0 lh-base text-decoration-none">
           #CONTENTS</p>
         <div class="d-flex align-items-center mt-4">
-          <a href="${this._FirstSite}/SitePages/Special-Offers-details.aspx?env=WebView&SpecialOfferID=#SpecialOfferID"
+          <a href="${this._FirstSite}/SitePages/Special-Offers-details.aspx?env=Embedded&SpecialOfferID=#SpecialOfferID"
             class="d-flex align-items-center gap-1 font-MyriadProSemibold gp-text-dark pt-1 cursor-pointer text-decoration-none">Read
             More
             <img src="${this._FirstSite}/SiteAssets/images/icons/arrow-right-line.png" /></a>
@@ -65,10 +65,10 @@ export default class DmccjsSpecialOffers
                OFFER DETAILS
                 </p>
                 <div class="float-start pe-2">
-                  <a target="_blank" href="${this._FirstSite}/SitePages/Special-Offers.aspx?env=WebView"
+                  <a target="_blank" href="${this._FirstSite}/SitePages/Special-Offers.aspx?env=Embedded"
                     class="dmcc-btn float-start px-4 py-2 dmcc-bg-primary text-sm mt-3 mb-2 text-decoration-none font-MyriadProBold text-white">View
                     All Special Offers</a>     
-                 <!-- <a target="_blank" href="${this._FirstSite}/SitePages/Bayzat-Offers.aspx?env=WebView"
+                 <!-- <a target="_blank" href="${this._FirstSite}/SitePages/Bayzat-Offers.aspx?env=Embedded"
                     class="dmcc-btn float-start px-4 py-2 dmcc-bg-primary text-sm mt-3 mb-2 text-decoration-none font-MyriadProBold text-white" style="margin-left: 25px !important;">View
                     All Bayzat Offers</a>   -->                   
                 </div>
@@ -139,32 +139,29 @@ export default class DmccjsSpecialOffers
                       </div>
                   
 <!-- Comment section HTML start -->
+                   
                     <div class="w-100 float-start d-flex align-items-center font-MyriadProRegular gap-3 mb-4">
-                         <div class="d-flex align-items-center gap-2">
-                          <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon.png" alt="Like" title="Like" data-like-id="#LIKEID"/>
-                          <p class="text-base m-0 text-dark like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
+                        <div class="d-flex align-items-center gap-2">
+                          <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon-grey.png"  data-like-id="#LIKEID"/>
+                          <p class="text-base m-0 like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                          <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon.png" 
-                          alt="Comment" title="Comment" data-cmt-id="#CMTID"/>
-                          <p class="text-base m-0"  id="Cmt-count-#CMTID" >Comment(#CMCNT)</p>
+                          <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon-grey.png"/>
+                          <p class="text-base m-0" id="Cmt-count-#CMTID">Comment (#CMCNT)</p>
                         </div>
                     </div>
                     <div class="comment-sec-wrapper w-100 float-start mb-4">
                       <div class="w-100 float-start d-flex align-items-center comment-ip-wrapper gap-2">
                         <img class="flex-shrink-0 comment-sec-avatar" src="#PROFILEIMG"/>
-                        <div class="w-100 float-start px-12 py-12 d-flex flex-column form-group-bg">
+                        <div class="w-100 float-start px-12 py-12 d-flex flex-column form-group-bg position-relative">
                           <label for="subject" class="mb-1 font-MyriadProSemibold text-xs text-black">Add your comments</label>
                           <textarea class="form-control dmcc-form-input text-base text-black" id="desc" placeholder="Write your comment...."></textarea>
+                          <button type="button" class="dmcc-btn news-details-btn align-self-center float-start px-3 py-1 text-sm font-MyriadProBold cursor-pointer" id="add-comment-btn">
+                           Send
+                          </button>
                         </div>
                       </div>
-                      <div class="w-100 float-start d-flex justify-content-end mt-2">
-                        <button type="button" class="dmcc-btn news-details-btn align-self-center float-start px-3 py-1 text-sm font-MyriadProBold cursor-pointer" id="add-comment-btn">
-                          Send
-                        </button>
-                      </div>
-                       <div class="comment-list-wrapper custom-scroll-view w-100 float-start d-flex flex-column mt-3" id="commentsContainer">
-                        
+                      <div class="comment-list-wrapper custom-scroll-view w-100 float-start d-flex flex-column mt-3" id="commentsContainer">
 
                       </div>
                     </div>

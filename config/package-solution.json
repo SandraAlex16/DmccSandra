@@ -3,7 +3,7 @@
   "solution": {
     "name": "new-joinee-video-gal-vacancies-client-side-solution",
     "id": "6ef25415-42a9-48ef-bb14-efcdc643fd0e",
-    "version": "1.0.0.0",
+    "version": "4.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -30,7 +30,7 @@
         "title": "new-joinee-video-gal-vacancies Feature",
         "description": "The feature that activates elements of the new-joinee-video-gal-vacancies solution.",
         "id": "84a0c208-db49-4c44-9bd6-ad680867a75c",
-        "version": "1.0.0.0",
+        "version": "4.0.0.0",
         "assets": {
           "elementManifests": [
             "elements.xml",

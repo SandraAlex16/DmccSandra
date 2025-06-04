@@ -138,27 +138,12 @@
         }
       ]
     },
-    "jlt-offers-details-web-part": {
-      "components": [
-        {
-          "entrypoint": "./lib/webparts/jltOffersDetails/JltOffersDetailsWebPart.js",
-          "manifest": "./src/webparts/jltOffersDetails/JltOffersDetailsWebPart.manifest.json"
-        }
-      ]
-    },
+   
     "uptown-offers-listing-web-part": {
       "components": [
         {
           "entrypoint": "./lib/webparts/uptownOffersListing/UptownOffersListingWebPart.js",
           "manifest": "./src/webparts/uptownOffersListing/UptownOffersListingWebPart.manifest.json"
-        }
-      ]
-    },
-    "uptown-offers-details-web-part": {
-      "components": [
-        {
-          "entrypoint": "./lib/webparts/uptownOffersDetails/UptownOffersDetailsWebPart.js",
-          "manifest": "./src/webparts/uptownOffersDetails/UptownOffersDetailsWebPart.manifest.json"
         }
       ]
     }
@@ -182,8 +167,7 @@
     "LinkdinUatWebPartStrings": "lib/webparts/linkdinUat/loc/{locale}.js",
     "NotificationsApplicationCustomizerStrings": "lib/extensions/notifications/loc/{locale}.js",
     "JltOffersListingWebPartStrings": "lib/webparts/jltOffersListing/loc/{locale}.js",
-    "JltOffersDetailsWebPartStrings": "lib/webparts/jltOffersDetails/loc/{locale}.js",
-    "UptownOffersListingWebPartStrings": "lib/webparts/uptownOffersListing/loc/{locale}.js",
-    "UptownOffersDetailsWebPartStrings": "lib/webparts/uptownOffersDetails/loc/{locale}.js"
+    "UptownOffersListingWebPartStrings": "lib/webparts/uptownOffersListing/loc/{locale}.js"
+  
   }
 }
