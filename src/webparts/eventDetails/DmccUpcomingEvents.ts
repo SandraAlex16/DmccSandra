@@ -159,8 +159,6 @@ export default class DmccUpcomingEvents
     </div>
   </div>
 
-
-
     <div id="likeEventUsersPopup" class="like-event-users-popup" style="display: none;"></div>
 
 

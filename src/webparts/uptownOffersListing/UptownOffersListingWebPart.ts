@@ -112,7 +112,6 @@ export default class UptownOffersListingWebPart extends BaseClientSideWebPart<IU
   }
 
   private DDLChangeYearMonth(): void {
-
     this.itemsToDisplay = 6;
     this.loadItems();
   }
@@ -139,6 +138,94 @@ export default class UptownOffersListingWebPart extends BaseClientSideWebPart<IU
 
   }
 
+  // private renderItems(): void {
+  //   const upTownOfferList = this.domElement.querySelector("#upTownOfferListings");
+
+  //   const tempElement = document.createElement('div');
+
+  //   if (upTownOfferList) {
+  //     upTownOfferList.innerHTML = ""; // Clear existing items
+
+
+  //     if (this.items.length < this.itemsToDisplay) {
+  //       this.BtnLoadMoreupTownOffers.style.visibility = "hidden";
+  //     }
+  //     else if (this.items.length >= this.itemsToDisplay) {
+  //       this.BtnLoadMoreupTownOffers.style.visibility = "visible";
+  //     }
+
+
+  //     let items2 = this.items;
+  //     if (this.searchNewText && this.searchNewText != "") {
+  //       items2 = [];
+  //       for (var x = 0; x < this.items.length; x++) {
+
+  //         let item = this.items[x];
+  //         if ((item.Title != null && item.Title.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
+  //           (item.ShortDescription != null && item.ShortDescription.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1)  ) {
+  //           items2.push(item);
+  //         }
+  //       }
+  //     } else { items2 = this.items; }
+
+
+  //     let allElementsHtml: any = "";
+
+  //     items2.forEach((item) => {
+  //       let DMCCImage: any = item.Image;
+
+  //       tempElement.innerHTML = item.ShortDescription;
+  //       item.ShortDescription = (tempElement.textContent + "").substring(0, 81);
+
+  //     DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/SiteAssets/images/default.jpg`;
+
+  //       if (item.Image) {
+  //         try {
+  //           const imageObj = JSON.parse(item.Image);
+            
+  //           if (imageObj?.serverRelativeUrl) {
+  //             DMCCImage = `${window.location.protocol}//${window.location.host}${imageObj.serverRelativeUrl}`;
+  //           } else if (imageObj?.fileName) {
+  //             DMCCImage = `//dmccdxb.sharepoint.com${this._FirstSite}/Lists/UPTOWNOffers/Attachments/${item.ID}/${imageObj.fileName}`;
+  //           }
+  //         } catch (error) {
+  //           console.warn(`Could not parse Image for item ID ${item.ID}`, error);
+  //         }
+  //       }
+
+
+  //       let SpecialOfferDate: Date;
+
+  //       let upTownOffersListingHtml = this.dmccupTownOffers.upTownOffersListingHtml;
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace(new RegExp("_FirstSite", "g"), this._FirstSite);
+
+  //       SpecialOfferDate = new Date(item.StartDate);
+  //       const options = { month: 'long' } as const;
+  //       let monthname = new Intl.DateTimeFormat('en-US', options).format(SpecialOfferDate);
+  //       let Month = monthname.toString().substring(0, 3);
+  //       let Day = SpecialOfferDate.toString().split(' ', 3)[2];
+  //       var Year = SpecialOfferDate.toString().split(' ', 4)[3];
+
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#DAY", Day + "");
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#MONTH", Month + "");
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#YEAR", Year + "");
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#CONTENTS", item.ShortDescription + "");
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#IMGSRC", DMCCImage + "");
+  //       upTownOffersListingHtml = upTownOffersListingHtml.replace("#upTownOfferID", item.ID)
+  //        upTownOffersListingHtml = upTownOffersListingHtml.replace( "#URL",item.LinkUrl?.Url ?? "#")
+       
+
+  //       allElementsHtml += upTownOffersListingHtml;
+
+  //     });
+  //      if (items2.length <= 0) {
+  //       let noitm = this.dmccupTownOffers.NOsingleElementHtml;
+  //       allElementsHtml = noitm;
+  //     }
+  //     upTownOfferList.innerHTML = allElementsHtml;
+
+  //   }
+  // }
   private renderItems(): void {
     const upTownOfferList = this.domElement.querySelector("#upTownOfferListings");
 
@@ -147,33 +234,37 @@ export default class UptownOffersListingWebPart extends BaseClientSideWebPart<IU
     if (upTownOfferList) {
       upTownOfferList.innerHTML = ""; // Clear existing items
 
-
       if (this.items.length < this.itemsToDisplay) {
         this.BtnLoadMoreupTownOffers.style.visibility = "hidden";
-      }
-      else if (this.items.length >= this.itemsToDisplay) {
+      } else if (this.items.length >= this.itemsToDisplay) {
         this.BtnLoadMoreupTownOffers.style.visibility = "visible";
       }
 
+      let filteredItems = this.items;
+      
 
-      let items2 = this.items;
-      if (this.searchNewText && this.searchNewText != "") {
-        items2 = [];
-        for (var x = 0; x < this.items.length; x++) {
+      if (this.searchNewText && this.searchNewText.trim() !== "") {
+        const searchText = this.searchNewText.toLowerCase();
+        filteredItems = this.items.filter(item => 
+          (item.Title && item.Title.toLowerCase().includes(searchText)) || 
+          (item.ShortDescription && item.ShortDescription.toLowerCase().includes(searchText))
+        );
+      }
 
-          let item = this.items[x];
-          if ((item.Title != null && item.Title.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1) ||
-            (item.ShortDescription != null && item.ShortDescription.toLocaleLowerCase().indexOf(this.searchNewText.toLocaleLowerCase()) > -1)  ) {
-            items2.push(item);
-          }
-        }
-      } else { items2 = this.items; }
-
+      // Only display up to itemsToDisplay number of items
+      const displayItems = filteredItems.slice(0, this.itemsToDisplay);
+      
+      // Update load more button visibility based on filtered results
+      if (filteredItems.length <= this.itemsToDisplay) {
+        this.BtnLoadMoreupTownOffers.style.visibility = "hidden";
+      } else {
+        this.BtnLoadMoreupTownOffers.style.visibility = "visible";
+      }
 
       let allElementsHtml: any = "";
 
-      items2.forEach((item) => {
-        let DMCCImage: any = item.Image;
+      displayItems.forEach((item) => {
+ let DMCCImage: any = item.Image;
 
         tempElement.innerHTML = item.ShortDescription;
         item.ShortDescription = (tempElement.textContent + "").substring(0, 81);
@@ -194,7 +285,6 @@ export default class UptownOffersListingWebPart extends BaseClientSideWebPart<IU
           }
         }
 
-
         let SpecialOfferDate: Date;
 
         let upTownOffersListingHtml = this.dmccupTownOffers.upTownOffersListingHtml;
@@ -212,18 +302,18 @@ export default class UptownOffersListingWebPart extends BaseClientSideWebPart<IU
         upTownOffersListingHtml = upTownOffersListingHtml.replace("#YEAR", Year + "");
         upTownOffersListingHtml = upTownOffersListingHtml.replace("#CONTENTS", item.ShortDescription + "");
         upTownOffersListingHtml = upTownOffersListingHtml.replace("#IMGSRC", DMCCImage + "");
-        upTownOffersListingHtml = upTownOffersListingHtml.replace("#upTownOfferID", item.ID)
-         upTownOffersListingHtml = upTownOffersListingHtml.replace( "#URL",item.LinkUrl?.Url ?? "#")
-       
+        upTownOffersListingHtml = upTownOffersListingHtml.replace("#upTownOfferID", item.ID);
+        upTownOffersListingHtml = upTownOffersListingHtml.replace("#URL", item.LinkUrl?.Url ?? "#");
 
         allElementsHtml += upTownOffersListingHtml;
-
       });
+       if (filteredItems.length <= 0) {
+        let noitm = this.dmccupTownOffers.NOsingleElementHtml;
+        allElementsHtml = noitm;
+      }
       upTownOfferList.innerHTML = allElementsHtml;
-
     }
   }
-
   public render(): void {
     const workbenchContent = document.getElementById('workbenchPageContent'); 
 

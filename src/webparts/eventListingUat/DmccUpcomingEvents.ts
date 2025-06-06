@@ -33,7 +33,7 @@ export default class DmccUpcomingEvents
                             <img class="flex-shrink-0 cursor-pointer like-icon" src="_FirstSite/SiteAssets/images/icons/like-icon-grey.png"  data-like-id="#LIKEID">
                             <p class="text-base m-0 like-count cursor-pointer" id="like-count-#LIKEID">Like (#LIKECOUNT)</p>
                           </div>
-                          <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?eventId=#LIKEID#scrollToComments" class="d-flex align-items-center gap-1 comment-link-btn">
+                          <a href="_FirstSite/allevents/SitePages/Upcoming-Event-Details.aspx?UpcomingEventsID=#LIKEID#scrollToComments" class="d-flex align-items-center gap-1 comment-link-btn">
                               <img class="flex-shrink-0 cursor-pointer" src="_FirstSite/SiteAssets/images/icons/comment-icon-grey.png">
                               <p class="text-base m-0">Comment (#CMCNT)</p>
                             </a>

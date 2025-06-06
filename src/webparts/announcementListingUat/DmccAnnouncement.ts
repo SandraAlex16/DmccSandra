@@ -49,9 +49,8 @@ export default class DmccAnnouncement {
                       </div>
                     </div>
                   </div>
-                </div>
-          <div id="likeUsersPopup" class="like-users-popup" style="display: none;"></div>
-      `;
+    </div>
+          <div id="likeUsersPopup" class="like-users-popup" style="display: none;"></div> `;
   
     public html: string = `	 
   
@@ -69,9 +68,6 @@ export default class DmccAnnouncement {
           <divclass="row">
             <div class="col-12 mb-4">
               <div style='display:none;' id='divWrapper'  class="col-box-wrapper w-100 float-start bg-white gp-shadow d-flex flex-column">
-              
-  
-  
               <div class="col-box-title col-box-title-details d-flex flex-column flex-md-row bg-white position-relative">
               <div class="d-flex align-items-center gap-3">
                 <div class="col-box-icon sqbx-theme-2 d-flex flex-shrink-0 align-items-center justify-content-center">
@@ -113,8 +109,7 @@ export default class DmccAnnouncement {
   
                     <div class="dropdown dmcc-dropdown">
                       <select type="button" class="dropdown-toggle dmcc-form-select" type="button" id="year-dropdown" data-bs-toggle="dropdown"
-                      aria-expanded="false">           
-                                   
+                      aria-expanded="false">                            
                     </select>                   
                     </div>  
                    </div>
@@ -135,6 +130,5 @@ export default class DmccAnnouncement {
           </div>
         </div>
       </div>
-    </div>
-                      `;
+    </div> `;
   }

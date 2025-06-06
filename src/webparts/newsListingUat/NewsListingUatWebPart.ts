@@ -107,8 +107,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
   }
 
   private populateDropdown(years: any): void {
-
-
     let dropdown: any = this.domElement.querySelector('#year-dropdown');
     if (dropdown) {
       let options: any[] = [];
@@ -152,8 +150,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
     //this.loadItems();
     this.DDLChangeYearMonth();
   }
-
-
   private loadItems(): void {
 
 
@@ -196,12 +192,10 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
         console.error(error);
       });
   }
-
   private loadMoreItems(): void {
     this.itemsToDisplay += 6; // Increase the number of items to display
     this.loadItems();
   }
-
   // private renderItems(): void {
   //   const NewsList = this.domElement.querySelector("#NewsListings");
 
@@ -363,7 +357,7 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
         .replace(/#LIKEID/g, item.ID.toString())
         .replace("#LIKECOUNT", likeCount.toString())
         .replace("#CMCNT", commentCount.toString())
-        .replace("#commentsContainer", "#commentsContainer");
+       
 
       allElementsHtml += singleElementHtml;
     }
@@ -372,7 +366,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
     this._registerLikeEvents();
     this.domElement.style.visibility = 'visible';
   }
-  
 
   private _registerLikeEvents(): void {
     this.domElement.querySelectorAll('.like-icon').forEach(icon => {
@@ -389,6 +382,7 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
       });
     });
   }
+
   private _showNewsLikeUserPopup(users: { name: string; pictureUrl: string }[], event: MouseEvent): void {
     // Remove any existing popup
     const oldPopup = document.getElementById("likeNewsUsersPopup");
@@ -483,6 +477,7 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
       return { name, pictureUrl };
     });
   }
+
   private async _getCommentCount(newsId: number): Promise<number> {
     const subsiteUrl = `${this._FirstSite}/allnews`;
     const res = await this.context.spHttpClient.get(
@@ -538,9 +533,7 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
     
     console.log(`Like with ID ${likeId} removed.`);
   }
-  
-  
-  
+
   private async _getCurrentUser(): Promise<any> {
     const res = await this.context.spHttpClient.get(
       `${this.context.pageContext.web.absoluteUrl}/_api/web/currentuser`,
@@ -667,8 +660,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
 
   }
 
-
-
   private SearchBoxMethod(event: any): void {
 
     console.log(`key=${event.key},code=${event.code}`);
@@ -725,7 +716,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
     console.log(this._environmentMessage + ': < current environmentMessage');
   }
 
-
   private loadLibraries(): void {
 
     //add script    
@@ -758,8 +748,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
       this._environmentMessage = message;
     });
   }
-
-
 
   private _getEnvironmentMessage(): Promise<string> {
     if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
@@ -809,7 +797,6 @@ export default class NewsListingUatWebPart extends BaseClientSideWebPart<INewsLi
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
-
 
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
     if (propertyPath === 'firstSite' && newValue) {

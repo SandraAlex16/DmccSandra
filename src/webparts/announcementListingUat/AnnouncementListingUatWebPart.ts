@@ -68,11 +68,8 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
 
   private dmccAnno = new DmccAnnouncement();
 
-
-
   private loadDistinctYears(): void {
     const endpointUrl: string = `${this.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('Announcements')/items?$select=DMCCEndDate,DMCCStartDate&$orderby=DMCCEndDate asc`;
-
     this.context.spHttpClient.get(endpointUrl, SPHttpClient.configurations.v1)
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
@@ -105,9 +102,8 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
 
     return yearsSet;
   }
+  
   private populateDropdown(years: any): void {
-
-
     let dropdown: any = this.domElement.querySelector('#year-dropdown');
     if (dropdown) {
       let options: any[] = [];
@@ -142,12 +138,8 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
 
   }
 
-
-
   private loadItems(): void {
-
     var filter: any;
-
     if (this.filterCriteria.length > 0 && this.stringFilter.length > 0) {
       filter = `$filter=${this.stringFilter} and ${this.filterCriteria.join(' and ')}`;
     }
@@ -384,6 +376,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
     });
     
   }
+
   private _showLikeUserPopup(users: { name: string; pictureUrl: string }[], event: MouseEvent): void {
       // Remove any existing popup
  const oldPopup = document.getElementById("likeUsersPopup");
@@ -477,9 +470,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
       return { name, pictureUrl };
     });
   }
-  
-
-
+ 
   private async _handleAnnoLikeClick(announcementId: number): Promise<void> {
     const currentUser = await this._getCurrentUser();
     const existingLike = await this._getExistingAnnoLike(announcementId, currentUser.Id);
@@ -512,7 +503,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
       return 0;
     }
   }
-  
+
   private async _getExistingAnnoLike(announcementId: number, userId: number): Promise<any> {
     const res = await this.context.spHttpClient.get(
       `${this._FirstSite}/_api/web/lists/getbytitle('AnnouncementLikes')/items?$filter=AnnoId eq ${announcementId} and LikedById eq ${userId}`,
@@ -611,6 +602,7 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
       console.error('Error while removing like:', error);
     }
   }
+
   private async _getCurrentUser(): Promise<any> {
     const res = await this.context.spHttpClient.get(
       `${this.context.pageContext.web.absoluteUrl}/_api/web/currentuser`,
@@ -618,8 +610,8 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
     );
     return await res.json();
   }
-  private DDLChangeYearMonth(): void {
 
+  private DDLChangeYearMonth(): void {
     this.filterCriteria = [];
     var DDLSelectedMonth = (<HTMLInputElement>document.getElementById("month-dropdown")).value.toLowerCase();
     var MonthNumber: any;
@@ -695,7 +687,6 @@ export default class AnnouncementListingUatWebPart extends BaseClientSideWebPart
   }
 
   private SearchBoxMethod(event: any): void {
-
     //`${this._FirstSite}/SiteAssets/images/default.jpg`;
     console.log(`key=${event.key},code=${event.code}`);
     this.SearchTextInput = this.domElement.querySelector("#searchAnnouncementsId") as HTMLInputElement;

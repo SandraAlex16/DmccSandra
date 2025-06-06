@@ -214,7 +214,10 @@ private SearchBoxMethod(event: any): void {
 
         allElementsHtml += jltOffersListingHtml;
       });
-      
+       if (filteredItems.length <= 0) {
+        let noitm = this.dmccjltOffers.NOsingleElementHtml;
+        allElementsHtml = noitm;
+      }
       jltOfferList.innerHTML = allElementsHtml;
     }
   }

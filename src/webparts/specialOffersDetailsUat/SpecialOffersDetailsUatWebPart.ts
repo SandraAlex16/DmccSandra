@@ -642,11 +642,7 @@ private async _checkIfUserIsAdmin(): Promise<boolean> {
     return false; // Return false if there is an error
   }
 }
-
-
-
-
-
+ 
 private _registerDeleteEventCommentEvents(offerId: number): void {
   const buttons = this.domElement.querySelectorAll('.delete-comment');
   buttons.forEach(button => {

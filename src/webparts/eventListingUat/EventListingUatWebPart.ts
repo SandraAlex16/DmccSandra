@@ -124,8 +124,6 @@ export default class EventListingUatWebPart extends BaseClientSideWebPart<IEvent
   }
 
   private populateDropdown(years: any): void {
-
-
     let dropdown: any = this.domElement.querySelector('#year-dropdown');
     if (dropdown) {
       let options: any[] = [];
@@ -369,7 +367,6 @@ export default class EventListingUatWebPart extends BaseClientSideWebPart<IEvent
         singleElementHtml = singleElementHtml.replace("#MONTH", Month);
         singleElementHtml = singleElementHtml.replace("#YEAR", Year);
         singleElementHtml = singleElementHtml.replace("#TITLE", item.Title || "");
-  
         let loction = item.Location || "Not Found";
         singleElementHtml = singleElementHtml.replace("#LOCATION", loction);
         singleElementHtml = singleElementHtml.replace("#IMGSRC", EventImage);
@@ -546,22 +543,18 @@ private async _getCurrentUser(): Promise<any> {
 }
   
   
-  private async _getEventCommentCount(eventId: number): Promise<number> {
-    try {
+
+    private async _getEventCommentCount(eventId: number): Promise<number> {
       const subsiteUrl = `${this._FirstSite}/allevents`;
-      const response = await fetch(`${subsiteUrl}/_api/web/lists/getbytitle('EventsComments')/items?$filter=EventId eq ${eventId}&$select=Id`);
-      if (!response.ok) {
-        console.error(`Failed to fetch comments for event ${eventId}:`, response);
-        return 0; // Return 0 if the request fails
-      }
-      const data = await response.json();
-      return data.value ? data.value.length : 0;
-    } catch (error) {
-      console.error('Error fetching comment count:', error);
-      return 0; // Return 0 in case of error
-    }
+      const res = await this.context.spHttpClient.get(
+      `${subsiteUrl}/_api/web/lists/getbytitle('EventsComments')/items?$filter=EventId eq ${eventId}&$select=Id`,
+      SPHttpClient.configurations.v1
+    );
+
+    const json = await res.json();
+    return json.value.length;
+       
   }
-  
   
   private async _getExistingEventLike(eventId: number, userId: number): Promise<any> {
     const subsiteUrl = `${this._FirstSite}/allevents`;

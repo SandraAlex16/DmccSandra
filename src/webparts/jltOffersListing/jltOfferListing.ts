@@ -81,5 +81,13 @@ export default class DmccjltOffersListing
     </div>
   </div>
 </div>`;
+public NOsingleElementHtml: string = `  
+      
+    <div class="col-md-4 float-start">
+        <div class="w-100 h-100 float-start d-flex flex-column align-items-start ">
+           No record found!
+        </div>
+      </div>
+    `;
 }
 

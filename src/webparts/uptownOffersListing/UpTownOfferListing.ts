@@ -69,8 +69,7 @@ export default class DmccupTownOffersListing
                   <div class="float-start filter-search-input">
                     <input id="searchUpTownOffersId" class="form-control form-control gp-input gp-input-search gp-input-search-inside"
                       type="text" placeholder="Search Offers" aria-label="Search" />
-                  </div>
-
+                  </div> 
                 <!--  <div class="dropdown dmcc-dropdown">
                   <select type="button" id="month-dropdown" class="dropdown-toggle dmcc-form-select" data-bs-toggle="dropdown" aria-expanded="false">                  
                   <div class="dropdown-menu month-dropdown-menu" aria-labelledby="month-dropdown">     
@@ -113,5 +112,13 @@ export default class DmccupTownOffersListing
     </div>
   </div>
 </div>`;
+public NOsingleElementHtml: string = `  
+      
+    <div class="col-md-4 float-start">
+        <div class="w-100 h-100 float-start d-flex flex-column align-items-start">
+           No record found!
+        </div>
+      </div>
+    `;
 }
 
